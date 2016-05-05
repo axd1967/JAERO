@@ -8,9 +8,8 @@ In the advent of MH370, Classic Aero has become a well-known name. A quick searc
 
 There are different types of Classic Aero, the main difference being speed. JAERO demodulates the two slowest speeds of 600 bps and 1200 bps as well as the faster rate of 10500 bps. After the signals have been demodulated the ACARS messages are displayed.
 
-SatCom ACARS reception on small dish
-
-SatCom ACARS reception on 90cm dish
+![SatCom ACARS reception on 90cm dish (? check with name of image)](images/smalldish.png)
+*SatCom ACARS reception on 90cm dish*
 
 This program started when I was contacted by otti, a satellite monitoring enthusiast from Europe inquiring whether or not [JMSK](http://jontio.zapto.org/software-and-hardware/jmsk.html) could be used to demodulate the 600 and 1200 Aero signals. Initially I was quite doubtful because in the draft Aero protocol manual that can be freely obtained from [ICAO](http://www.icao.int/Pages/default.aspx) (/International Civil Aviation Organization/) called Part III – Inmarsat and [MTSAT](http://www.icao.int/safety/acp/inactive%20working%20groups%20library/acp-wg-m-iridium-8/ird-swg08-wp07%20-%20old_amss_material_ch.4_plus_attachment.doc), calls the modulation scheme A-BPSK (/aeronautical binary phase shift keying/) and JMSK demodulates MSK (/minimum shift keying/) not BPSK (/binary phase shift keying/). Without even reading the manual I modified JMSK to do 600 and 1200 and to my astonishment it locked extremely well onto a sample signal I had been given. I then read the manual a little more fully and realized yes indeed what they called A-BPSK is really just filtered MSK, this type of signal JMSK does very well with.
 
@@ -23,37 +22,32 @@ The signals are transmitted on the L band around 1.5 GHz from geostationary sate
 
 To receive the signal you need an antenna. Initially I tried making a helical antenna but due to my poor construction did not work very well. My second attempt was to simply take the ceramic filter out of an active GPS patch antenna and feed it with some electricity; this is what you see in the figure below.
 
-Arguably the simplest L band antenna (GPS antenna with filter removed)
-
-Arguably the simplest L band antenna (GPS antenna with filter removed)
+![Arguably the simplest L band antenna (GPS antenna with filter removed)](images/nodish.jpg)
+*Arguably the simplest L band antenna (GPS antenna with filter removed)*
 
 I found the filter somewhat difficult to remove and in the end resorted to brute force by using side cutters to shatter it. While the filter was not entirely removed it was removed enough that it no longer functioned as a filter.
 
 As the modified GPS antenna is an active antenna it needs a power supply. I had a spare PCB with a couple of SMA connectors on it lying around that I put a few random components on to feed power to the GPS receiver while blocking power to the RTL-SDR dongle. The figure below shows a close-up view of the board.
 
-Power feed to antenna
-
-Power feed to antenna
+![Power feed to antenna](images/voltagefeed.jpg)
+*Power feed to antenna*
 
 The RTL-SDR dongle I used was just some $10 or $20 thing I found on the Internet. My particular one seems to be particularly bad, as well as having the usual bad long-term frequency stability, it also has bad short-term frequency stability.
 
 With this particular setup I pointed the antenna roughly in the direction of the Inmarsat 3F3 satellite and tuned into one of the signals using [SDR#](http://www.rtl-sdr.com/big-list-rtl-sdr-supported-software/) on the laptop. I then took a screenshot which is shown in the figure below.
 
-SatCom ACARS reception using GPS antenna with filter removed (no dish)
-
-SatCom ACARS reception using GPS antenna with filter removed (no dish)
+![SatCom ACARS reception using GPS antenna with filter removed (no dish)](images/noantennajaero.png)
+*SatCom ACARS reception using GPS antenna with filter removed (no dish)*
 
 With this set up the signals are fairly weak at around 6 to 10 dB above the noise floor. However, as can be seen it is clearly possible to demodulate and decode the signal. The following figure shows a screenshot of the frequency spectrum from SDR#.
 
-Frequency spectrum display of received signal
-
-Frequency spectrum display of received signal
+![Frequency spectrum display of received signal](images/noantennaspec.png)
+*Frequency spectrum display of received signal*
 
 GPS signals like the Aero signals are transmitted using RHCP (/Right Hand Circular Polarization/), when such a signal reflects off a surface I believe it is supposed to become LHCP (/Left Hand Circular Polarization/) which RHCP antennas are designed to reject. Therefore, attaching such an antenna to it a satellite dish is not really the right thing to do; I tried it anyway. It seems however any loss incurred due to the RHCP/LHCP thing is offset by the gain you get from the satellite dish. All I had was a 90 cm dish and a 2.3 m dish. The figure below shows the the modified GPS antenna connected to the 90 cm dish.
 
-90cm dish with modified GPS patch antenna
-
-90cm dish with modified GPS patch antenna
+![90cm dish with modified GPS patch antenna](images/smalldish.jpg)
+*90cm dish with modified GPS patch antenna*
 
 According to [Dish gain calculator](http://www.satcom.co.uk/article.asp?article=22), an ideal 90 cm dish should produce 23 dB gain. The very first picture you see on this page is a reception using the 90 cm dish. The EbNo for the 90 cm dish is around 22 dB while with no dish the EbNo is around 6 dB. Therefore that’s an actual gain of around 16 dB. Again from [Dish gain [calculator](http://www.satcom.co.uk/article.asp?article=22) this means the efficiency of the dish is around 19%. According to Wikipedia’s [parabolic antenna](https://en.wikipedia.org/wiki/Parabolic_antenna), “The aperture efficiency of typical parabolic antennas is 0.55 to 0.70”. So all things being considered 19% is OK. Of course this is all very approximate.
 
@@ -76,7 +70,8 @@ The program has run successfully on Windows and Linux. Martin Hauke (mnhauke) ha
 
 ### JAERO on Linux
 
-### Playing recorded Aero signals into JAERO on Linux
+![Playing recorded Aero signals into JAERO on Linux](images/jaero-linux.png)
+*Playing recorded Aero signals into JAERO on Linux*
 
 Currently there is no user manual but the program is reasonably self-explanatory. If anyone wishes to write a manual for others please feel free, I would suggest placing it in the [JAERO wiki](https://github.com/jontio/JAERO/wiki) so others can modify it as time goes by. In the absence of a manual there are a few things that may help to know. To receive the signal you have to pass the audio of the receiver into JAERO. The receiver may be a hardware implementation or the common RTL-SDR dongle with SDR program (such as SDR#) method. For a physical receiver just plugging the audio output into the soundcard is enough. For the RTL-SDR dongle method the usual way people do this is to use a virtual audio cable such as [VB-Audio Virtual Cable](http://vb-audio.pagesperso-orange.fr/Cable/index.htm). The receiver should be set to USB (/Upper Side Band/), however, some receivers seem to be back to front and LSB (/Lower Side Band/) is required. Therefore, if the signal LED lights but the data LED does not, you either have not tuned into an Aero signal or you need to change the USB/LSB setting. If you select "Enable widebandwidth" in the settings you can demodulate signals up to 24 kHz but this uses more CPU, alternatively not having it checked uses less CPU but the upper frequency limit is limited. Currently the logs are saved with <LF> which do not render correctly in notepad.exe.
 
@@ -137,7 +132,7 @@ Pointing the patch antenna straight up into the sky I happened to tune into one 
 
 I started looking at packet 0x0C which broadcasts the location of all the satellites as well as packet 0x40 on the control channel which directs airplanes to other channels. This allowed me to produce the following three lists for the three satellites I can see from New Zealand without ever having to use any data external from the information sent from the satellites.
 
-    Sat ID 2 at 178.5E Long (+-0.75°)
+Sat ID 2 at 178.5E Long (+-0.75°)
 
     GES 82
     1545.010MHz 600bps (Smc)
@@ -155,15 +150,16 @@ I started looking at packet 0x0C which broadcasts the location of all the satell
     1545.200MHz 600bps (Smc)
     1546.070MHz 10500bps
 
-    Sat ID 5 at 144E Long (+-0.75°)
+
+Sat ID 5 at 144E Long (+-0.75°)
 
     GES 50
     1545.055MHz 600bps
     1545.105MHz 600bps (Smc)
     1546.005MHz 10500bps
     1546.035MHz 10500bps
-    
-    Sat ID 4 142.5E Long (+-0.75°)
+
+Sat ID 4 142.5E Long (+-0.75°)
 
     GES 71
     1546.402MHz 600bps
@@ -199,10 +195,8 @@ JAERO now supports 10.5k signals. With a few small tweaks to the design I implem
 
 The 10.5k signals I believe are part of the services called Aero-H and Aero-H+ where the H stands for high gain antenna. Here is an [audio sample of these 10.5k signals](https://drive.google.com/uc?export=download&id=0B1561PAMx6widEZXLXZ5dl9WRUU) for you to listen to (or decode), they have a 500ms chirping sound due to the 178bit dummy data. My first impressions of them has been that there is a lot more traffic on them than the 600 and 1200 signals. The 10.5k signals are weaker than the 600 and 1200 ones so you will need an antenna with a higher gain and/or a receiver with a good low noise preamplifier. The OQPSK demodulator in JAERO seems to produce good results down to 6 or 7dB EbNo with next to no errors (I would try and aim for 10dB though just be on the safe side). If you can manage to get a signal strength of 30dB on the 600 or 1200 ones then you should be able to get the 10.5k signals with your current set up. Below is a screenshot of decoding a signal obtained from a 1.2 m dish, the signal strength is over 10dB higher than it need be but produces a very clean constellation diagram.
 
-10.5k signal using 1.2m dish
-
-10.5k signal using 1.2m dish.
-They send news on these signals, that was a surprise
+![10.5k signal using 1.2m dish](images/first10k-sig.jpg)
+*10.5k signal using 1.2m dish. They send news on these signals, that was a surprise*
 
 
 ## C-band burst packets. (The excitement starts here)
@@ -275,9 +269,8 @@ Continue reading more about Experimenting with C-band Aero and Decoding the [ADS
 3-Mar-2016:
 A small update for C-band users to add support for outputting decoded ADS messages using the SBS1 protocol (also seemingly called BaseStation protocol). This protocol seems reasonably common with other applications and should allow easy connectivity with planes on maps application. See how I went using it to plot my first planes on [maps](http://jontio.zapto.org/hda1/c-band-planes-on-maps.html).
 
-Planes plotted on a map from data decoded using C-band signals off the I3 POR satellite
-
-Planes plotted on a map from data decoded using C-band signals off the I3 POR satellite
+![Planes plotted on a map from data decoded using C-band signals off the I3 POR satellite](images/planes-on-map-small.jpg)
+*Planes plotted on a map from data decoded using C-band signals off the I3 POR satellite*
 
 
 ## IRC #hearsat
@@ -294,20 +287,20 @@ Small update for C-band users to allow simultaneous demodulation of 2 channels a
 
 For using dual channels for C-band burst I used this [AUX VFO plugin for SDR#](http://www.rtl-sdr.com/new-sdr-plugin-multiple-vfos/). I added two AUX VFOs to SDR# and selected one to be the left channel while the other I selected to be the right channel. I tuned each VFO independently to each of the T channels on our I3 (POR). This can be seen in the following figure.
 
-Two AUX VFOs, one for each T channel
-
-Two AUX VFOs, one for each T channel
+![Two AUX VFOs, one for each T channel](images/C-band-stereo-from-sdr-sharp.jpg)
+*Two AUX VFOs, one for each T channel*
 
 I then selected "10500 bps burst x2" mode in JAERO; the results can be seen in the following figure where both 82T and 85T channels are being demodulated simultaneously.
 
-JAERO v1.0.4.3 demodulating two channels simultaneously
-
-JAERO v1.0.4.3 demodulating two channels simultaneously
+![JAERO v1.0.4.3 demodulating two channels simultaneously](images/C-band-stereo-to-jaero.jpg)
+*JAERO v1.0.4.3 demodulating two channels simultaneously*
 
 
 ## Show your thanks
 
 I have put hundreds of hours into making JAERO so if you want to show your thanks please send a few dollars my way so I can do things like buy some concrete and bolts to mount the big dish or buy another USB extension cord to get the signal at my desktop computer. Thanks.
+
+
 
 ## Github repository links
 
