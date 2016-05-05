@@ -300,7 +300,7 @@ I then selected "10500 bps burst x2" mode in JAERO; the results can be seen in t
 
 I have put hundreds of hours into making JAERO so if you want to show your thanks please send a few dollars my way so I can do things like buy some concrete and bolts to mount the big dish or buy another USB extension cord to get the signal at my desktop computer. Thanks.
 
-
+[PayPal donate button](https://www.paypal.com/nz/cgi-bin/webscr?cmd=_flow&SESSION=QRMzEurxK4R--rzmszxuQEomTZpZNqfSeCjY5VAfxUbJzZ-xkA6YRI3-Kai&dispatch=5885d80a13c0db1f8e263663d3faee8dcce3e160f5b9538489e17951d2c62172)
 
 ## Github repository links
 
