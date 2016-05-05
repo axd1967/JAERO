@@ -85,7 +85,7 @@ This version introduces a few new features and two bug fixes. See the [release p
 
 I know some may have wanted an image of each plane to appear automatically in the plane log window without having to download one manually. But due to copyright concerns I had, I've left it so if you want you can save any image to AB1234.png or AB1234.jpg for a plane with an AES of AB1234 and that image will load when that log entry is selected. Clicking on the plane icon will open up a web browser and bring up information about the plane as well as copy the AES to the clipboard.
 
-I've noticed that with the plane database that I've been using military planes don't appear on it. For those planes http://www.airframes.org/ can be used to find information about them.
+I've noticed that with the plane database that I've been using military planes don't appear on it. For those planes [http://www.airframes.org/]() can be used to find information about them.
 
 A quick word about the GES ( *Ground Earth Station* ) numbers. GES is a number that can tell you both what satellite you're listening to and where on the earth the uplink to the satellite is coming from. However this seems to be confusion as to the relationship between the GES number and the satellite and ground earth station. I have seen two different lists on the Internet which can be summarized in the following three tables (The last two tables come from the same information).
 
@@ -127,7 +127,7 @@ With a low gain antenna such as a modified GPS patch antenna you can receive mul
 
 ## Satellite X
 
-Pointing the patch antenna straight up into the sky I happened to tune into one station and got a GES 0x71 packet destined for an Air New Zealand plane. I had never heard of such a GES number. Someone mentioned to me that it might be MTSAT. At this point the penny dropped, the document I followed to decode Aero data was called “Part III – Inmarsat and *MTSAT*”. MTSAT was right there in the document title.
+Pointing the patch antenna straight up into the sky I happened to tune into one station and got a GES 0x71 packet destined for an Air New Zealand plane. I had never heard of such a GES number. Someone mentioned to me that it might be MTSAT. At this point the penny dropped, the document I followed to decode Aero data was called “Part III – Inmarsat and **MTSAT**”. MTSAT was right there in the document title.
 
 I started looking at packet 0x0C which broadcasts the location of all the satellites as well as packet 0x40 on the control channel which directs airplanes to other channels. This allowed me to produce the following three lists for the three satellites I can see from New Zealand without ever having to use any data external from the information sent from the satellites.
 
@@ -174,7 +174,7 @@ Sat ID 4 142.5E Long (+-0.75°)
 
 Using this method the satellites are not called by a name such as Inmarsat 3F3 but instead by a number such as 2. The location as given by the satellite is accurate to plus or minus 0.75°.
 
-So satellite X is called 4 and is at 142.5E +-0.75° longitude. So might it be MTSAT-2? MTSAT-2 according to http://www.n2yo.com/?s=28937 sits at 145° East, this is miles out from satellite X. Maybe HIMAWARI 8, nope this is 140.6° East according to http://www.satflare.com/track.asp?q=40267#TOP. So the mystery endures. So if you know what this satellite is called besides 4 let me know.
+So satellite X is called 4 and is at 142.5E +-0.75° longitude. So might it be MTSAT-2? MTSAT-2 according to [http://www.n2yo.com/?s=28937]() sits at 145° East, this is miles out from satellite X. Maybe HIMAWARI 8, nope this is 140.6° East according to [http://www.satflare.com/track.asp?q=40267#TOP](). So the mystery endures. So if you know what this satellite is called besides 4 let me know.
 
 The method I used everyone else can now do using JAERO v1.0.3.1. Simply tune into a control channel (Smc) and look at the packets that appear in the top window, take a note of the 0x40 and 0x0c packets over say an hour and piece together what the satellites are, the control channels and the other channels (Pd). Figuring out the other channels Pd is the reason you need to run it for an hour or so.
 
@@ -183,16 +183,15 @@ Personally I think with all the confusion about where the GES locations are in t
 ## 10.5k Signal support (part of the Aero-H and Aero-H+ services)
 
 3-Jan-2016:
-I am aware of three bit rates used by Aero; 600 1200 and 10.5k. 600 and 1200 both use basically MSK/GMSK, while 10.5k uses OQPSK ( *Offset quadrature phase shift keying* ). This means for 10.5k support I needed to design and implement an OQPSK demodulator. For the design and testing, I used Matlab, you can see here how the design and testing process went for the [OQPSK demodulator](http://jontio.zapto.org/hda1/oqpsk.html).
+I am aware of three bit rates used by Aero; 600 1200 and 10.5k. 600 and 1200 both use basically MSK/GMSK, while 10.5k uses OQPSK ( *Offset quadrature phase shift keying* ). This means for 10.5k support I needed to design and implement an OQPSK demodulator. For the design and testing, I used Matlab, you can [see here how the design and testing process went for the OQPSK demodulator](http://jontio.zapto.org/hda1/oqpsk.html).
 
 
-## Version 1.0.3 <https://github.com/jontio/JAERO/releases/tag/v1.0.3>
-    update (Four times as good)
+## [Version 1.0.3](https://github.com/jontio/JAERO/releases/tag/v1.0.3) update (Four times as good)
 
 10-Jan-2016:
-JAERO now supports 10.5k signals. With a few small tweaks to the design I implemented the OQPSK demodulator and incorporated it into JAERO. Its about another 1500 lines of new [code](https://github.com/jontio/JAERO/commit/b9bf105e5172661d4f85591158c8fd8065fbe9d4). See here how this implementation went and how the [initial first tests went](http://jontio.zapto.org/hda1/oqpsk-part2.html).
+JAERO now supports 10.5k signals. With a few small tweaks to the design I implemented the OQPSK demodulator and incorporated it into JAERO. Its about another [1500 lines of new code](https://github.com/jontio/JAERO/commit/b9bf105e5172661d4f85591158c8fd8065fbe9d4). See [here how this implementation went and how the initial first tests went](http://jontio.zapto.org/hda1/oqpsk-part2.html).
 
-The 10.5k signals I believe are part of the services called Aero-H and Aero-H+ where the H stands for high gain antenna. Here is an [audio sample of these 10.5k signals](https://drive.google.com/uc?export=download&id=0B1561PAMx6widEZXLXZ5dl9WRUU) for you to listen to (or decode), they have a 500ms chirping sound due to the 178bit dummy data. My first impressions of them has been that there is a lot more traffic on them than the 600 and 1200 signals. The 10.5k signals are weaker than the 600 and 1200 ones so you will need an antenna with a higher gain and/or a receiver with a good low noise preamplifier. The OQPSK demodulator in JAERO seems to produce good results down to 6 or 7dB EbNo with next to no errors (I would try and aim for 10dB though just be on the safe side). If you can manage to get a signal strength of 30dB on the 600 or 1200 ones then you should be able to get the 10.5k signals with your current set up. Below is a screenshot of decoding a signal obtained from a 1.2 m dish, the signal strength is over 10dB higher than it need be but produces a very clean constellation diagram.
+The 10.5k signals I believe are part of the services called Aero-H and Aero-H+ where the H stands for high gain antenna. [Here is an audio sample of these 10.5k signals](https://drive.google.com/uc?export=download&id=0B1561PAMx6widEZXLXZ5dl9WRUU) for you to listen to (or decode), they have a 500ms chirping sound due to the 178bit dummy data. My first impressions of them has been that there is a lot more traffic on them than the 600 and 1200 signals. The 10.5k signals are weaker than the 600 and 1200 ones so you will need an antenna with a higher gain and/or a receiver with a good low noise preamplifier. The OQPSK demodulator in JAERO seems to produce good results down to 6 or 7dB EbNo with next to no errors (I would try and aim for 10dB though just be on the safe side). If you can manage to get a signal strength of 30dB on the 600 or 1200 ones then you should be able to get the 10.5k signals with your current set up. Below is a screenshot of decoding a signal obtained from a 1.2 m dish, the signal strength is over 10dB higher than it need be but produces a very clean constellation diagram.
 
 ![10.5k signal using 1.2m dish](images/first10k-sig.jpg)
 *10.5k signal using 1.2m dish. They send news on these signals, that was a surprise*
@@ -201,14 +200,13 @@ The 10.5k signals I believe are part of the services called Aero-H and Aero-H+ w
 ## C-band burst packets. (The excitement starts here)
 
 23-Jan-2016:
-As well as the L band signals that people have been using JAERO to demodulate and decode, these Aero satellites also transmit information in the C-band around 3.6 GHz. A standard C-band satellite TV setup along with an F type female socket to SMA and male plug adapter and an SDR receiver is all that is needed to be able to receive them. These signals have successively been obtained using 1.8, 2.3 and 3 m dishes. What is attractive to many about these signals is that they contain the airplane location information. These signals are burst signals and require a burst demodulator for them. Continue reading here about the design, testing with real-life signals, and tips on how to receive such signals. [http://jontio.zapto.org/hda1/c-band.html]()
+As well as the L band signals that people have been using JAERO to demodulate and decode, these Aero satellites also transmit information in the C-band around 3.6 GHz. A standard C-band satellite TV setup along with an F type female socket to SMA and male plug adapter and an SDR receiver is all that is needed to be able to receive them. These signals have successively been obtained using 1.8, 2.3 and 3 m dishes. What is attractive to many about these signals is that they contain the airplane location information. These signals are burst signals and require a burst demodulator for them. [Continue reading here about the design, testing with real-life signals, and tips on how to receive such signals.](http://jontio.zapto.org/hda1/c-band.html)
 
 
 ## A couple of bugs fixed
 
 29-Jan-2016:
-I did a minor update and got rid of a couple of bugs. The update is
-v1.0.3.1
+I did a minor update and got rid of a couple of bugs. The update is v1.0.3.1
 
 
 ## Testing 2 RTL-SRDs and 1 SDRPlay receiver for Aero reception
@@ -228,18 +226,15 @@ Here are some frequency and satellite lists contributed by users that should be 
   * [C-band burst Aero satellites and frequencies as seen from West Europe](http://jontio.zapto.org/hda1/AERO-Cband-burst-March-2016-Europe.pdf). Kindly compiled by Hervé F6DFB.
 
 
-## Version 1.0.4 <https://github.com/jontio/JAERO/releases/tag/v1.0.4>
-    update (C-band burst packets are here)
+## [Version 1.0.4](https://github.com/jontio/JAERO/releases/tag/v1.0.4) update (C-band burst packets are here)
 
 20-Feb-2016:
-JAERO v1.0.4 now supports 10.5kbps burst C-band Aero signals (3,246 new lines of code!!!). These signals require a larger dish but contain positional information of the airplanes so potentially the airplanes whereabouts could be plotted on a map (if you can understand the format). This means that a plane that is well out of reach of [ADS-B](https://en.wikipedia.org/wiki/Automatic_dependent_surveillance_%E2%80%93_broadcast) can still be tracked. Since MH370 there has been a push to be able to track planes well beyond VHF range, these signals allow one such way of doing this. Continue reading here about this [awesome new feature](http://jontio.zapto.org/hda1/c-band-burst-implementation.html).
+JAERO v1.0.4 now supports 10.5kbps burst C-band Aero signals (3,246 new lines of code!!!). These signals require a larger dish but contain positional information of the airplanes so potentially the airplanes whereabouts could be plotted on a map (if you can understand the format). This means that a plane that is well out of reach of [ADS-B](https://en.wikipedia.org/wiki/Automatic_dependent_surveillance_%E2%80%93_broadcast) can still be tracked. Since MH370 there has been a push to be able to track planes well beyond VHF range, these signals allow one such way of doing this. [Continue reading here about this awesome new feature](http://jontio.zapto.org/hda1/c-band-burst-implementation.html).
 
 v1.0.4 fixes the database download issue, and shows non ACARS messages in hex. Before you update to it you should be aware that you should delete your plane log window as the registration value now filters out the "." and if you don't you'll get some odd repetitions of registration numbers. You will also have to download the database again as it expects the new database format rather than the old one.
 
 
-## Version 1.0.4.1
-    <https://github.com/jontio/JAERO/releases/tag/v1.0.4.1> minor update
-    (ADS-C decoding for C-band)
+## [Version 1.0.4.1](https://github.com/jontio/JAERO/releases/tag/v1.0.4.1) minor update (ADS-C decoding for C-band)
 
 27-Feb-2016:
 If you have read the previous page about JAERO supporting [burst C-band Aero](http://jontio.zapto.org/hda1/c-band-burst-implementation.html) you would have noticed a lack of human readable plane position reports. The minor update 1.0.4.1 addresses this issue by decoding and parsing the ADS packets from the C-band into a human readable form such as follows.
@@ -258,15 +253,13 @@ If you have read the previous page about JAERO supporting [burst C-band Aero](ht
 
 In addition a UDP port is added to output anything that appears in the bottom window of JAERO. This should simplify the design of third-party applications. A possible application could be to show the whereabouts of the planes on a map.
 
-Continue reading more about Experimenting with C-band Aero and Decoding the [ADS packets](http://jontio.zapto.org/hda1/c-band-ads-decoding.html).
+[Continue reading more about Experimenting with C-band Aero and Decoding the ADS packets](http://jontio.zapto.org/hda1/c-band-ads-decoding.html).
 
 
-## Version 1.0.4.2
-    <https://github.com/jontio/JAERO/releases/tag/v1.0.4.2> minor update
-    (Planes on maps for C-band is here)
+## [Version 1.0.4.2](https://github.com/jontio/JAERO/releases/tag/v1.0.4.2) minor update (Planes on maps for C-band is here)
 
 3-Mar-2016:
-A small update for C-band users to add support for outputting decoded ADS messages using the SBS1 protocol (also seemingly called BaseStation protocol). This protocol seems reasonably common with other applications and should allow easy connectivity with planes on maps application. See how I went using it to plot my first planes on [maps](http://jontio.zapto.org/hda1/c-band-planes-on-maps.html).
+A small update for C-band users to add support for outputting decoded ADS messages using the SBS1 protocol (also seemingly called BaseStation protocol). This protocol seems reasonably common with other applications and should allow easy connectivity with planes on maps application. [See how I went using it to plot my first planes on maps](http://jontio.zapto.org/hda1/c-band-planes-on-maps.html).
 
 ![Planes plotted on a map from data decoded using C-band signals off the I3 POR satellite](images/planes-on-map-small.jpg)
 *Planes plotted on a map from data decoded using C-band signals off the I3 POR satellite*
@@ -277,9 +270,7 @@ A small update for C-band users to add support for outputting decoded ADS messag
 \#hearsat is an [IRC](https://en.wikipedia.org/wiki/Internet_Relay_Chat) chatroom dedicated to satellite stuff; it seems to be the channel to goto for satellite stuff. So if you're interested in getting into satellite stuff further head on over to the [#hearsat chatroom](http://www.starchat.net/chat/?chan=hearsat). I hear it's an active chatroom with a large number of friendly users who would be more than happy to chat.
 
 
-## Version 1.0.4.3
-    <https://github.com/jontio/JAERO/releases/tag/v1.0.4.3> minor update
-    (C-band goes dual channel)
+## [Version 1.0.4.3](https://github.com/jontio/JAERO/releases/tag/v1.0.4.3) minor update (C-band goes dual channel)
 
 22-Mar-2016:
 Small update for C-band users to allow simultaneous demodulation of 2 channels at the same time. Also I've built both 32 and 64 bit Windows versions. If you have a 64bit computer (most people do) then the 64 bit should use a little less CPU. If you are upgrading from the 32 bit to 64 bit version then uninstall the 32 bit version first.
@@ -299,7 +290,7 @@ I then selected "10500 bps burst x2" mode in JAERO; the results can be seen in t
 
 I have put hundreds of hours into making JAERO so if you want to show your thanks please send a few dollars my way so I can do things like buy some concrete and bolts to mount the big dish or buy another USB extension cord to get the signal at my desktop computer. Thanks.
 
-[PayPal donate button](https://www.paypal.com/nz/cgi-bin/webscr?cmd=_flow&SESSION=QRMzEurxK4R--rzmszxuQEomTZpZNqfSeCjY5VAfxUbJzZ-xkA6YRI3-Kai&dispatch=5885d80a13c0db1f8e263663d3faee8dcce3e160f5b9538489e17951d2c62172)
+[(PayPal donate button)](https://www.paypal.com/nz/cgi-bin/webscr?cmd=_flow&SESSION=QRMzEurxK4R--rzmszxuQEomTZpZNqfSeCjY5VAfxUbJzZ-xkA6YRI3-Kai&dispatch=5885d80a13c0db1f8e263663d3faee8dcce3e160f5b9538489e17951d2c62172)
 
 ## Github repository links
 
@@ -309,13 +300,10 @@ I have put hundreds of hours into making JAERO so if you want to show your thank
 
 ## Downloads
 
-* Windows 32bit binary v1.0.4.3
-https://github.com/jontio/JAERO/releases/download/v1.0.4.3/JAERO-x32-setup.exe
-* Windows 64bit binary v1.0.4.3
-https://github.com/jontio/JAERO/releases/download/v1.0.4.3/JAERO-x64-setup.exe
-* Source code v1.0.4.3
-https://github.com/jontio/JAERO/archive/v1.0.4.3.zip
-* Master source https://github.com/jontio/JAERO/zipball/master
+* [Windows 32bit binary v1.0.4.3](https://github.com/jontio/JAERO/releases/download/v1.0.4.3/JAERO-x32-setup.exe)
+* [Windows 64bit binary v1.0.4.3](https://github.com/jontio/JAERO/releases/download/v1.0.4.3/JAERO-x64-setup.exe)
+* [Source code v1.0.4.3](https://github.com/jontio/JAERO/archive/v1.0.4.3.zip)
+* [Master source](https://github.com/jontio/JAERO/zipball/master)
 
 Jonti 2016
 
