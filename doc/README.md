@@ -213,7 +213,7 @@ I did a minor update and got rid of a couple of bugs. The update is v1.0.3.1
 ## Testing 2 RTL-SRDs and 1 SDRPlay receiver for Aero reception
 
 31-Jan-2016:
-I was given a loan of an SDRPlay receiver so I decided to have a look at the performance of both the two RTL dongles that I have and that of the SDRPlay on the Aero signals. Continue reading here how the testing [went](http://jontio.zapto.org/hda1/rtl-and-sdrplay/rtl-and-sdrplay.html).
+I was given a loan of an SDRPlay receiver so I decided to have a look at the performance of both the two RTL dongles that I have and that of the SDRPlay on the Aero signals. Continue reading [here how the testing went](http://jontio.zapto.org/hda1/rtl-and-sdrplay/rtl-and-sdrplay.html).
 
 
 <a name="ucfl"></a>
