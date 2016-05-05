@@ -78,8 +78,7 @@ Currently there is no user manual but the program is reasonably self-explanatory
 JAERO is a cross-platform open source program written in C++ Qt. It is hosted on GitHub as jontio/JAERO <https://github.com/jontio/JAERO> so feel free to extend it and improve it. The releases can be found at jontio/JAERO/releases <https://github.com/jontio/JAERO/releases>. Currently I only maintain precompiled versions for Windows 32-bit, these should work on Windows 7 and above for both 32-bit and 64-bit computers
 
 
-## Version 1.0.2 https://github.com/jontio/JAERO/releases/tag/v1.0.2
-    update (Third times a charm)
+## [Version 1.0.2](https://github.com/jontio/JAERO/releases/tag/v1.0.2) update (Third times a charm)
 
 19-Dec-2015:
 This version introduces a few new features and two bug fixes. See the [release page](https://github.com/jontio/JAERO/releases/tag/v1.0.2) for what's new and fixed.
