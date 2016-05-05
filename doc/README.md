@@ -1,29 +1,6 @@
-Menu
+# JAERO
 
-  * Home
-
-    <http://jontio.zapto.org/index.html>
-  * Software
-
-    <http://jontio.zapto.org/software.html>
-  * Hardware
-
-    <http://jontio.zapto.org/hardware.html>
-  * Plants
-
-    <http://jontio.zapto.org/plants.html>
-  * Math
-
-    <http://jontio.zapto.org/math.html>
-  * Contact
-
-    <http://jontio.zapto.org/contact.html>
-
-
-  JAERO
-
-
-    A program to demodulate and decode Classic Aero SatCom ACARS signals
+## A program to demodulate and decode Classic Aero SatCom ACARS signals
 
 JAERO is a program that demodulates and decodes Classic Aero [ACARS](https://en.wikipedia.org/wiki/Aircraft_Communications_Addressing_and_Reporting_System) (/Aircraft Communications Addressing and Reporting System/) messages sent from satellites to Aeroplanes (SatCom ACARS) commonly used when Aeroplanes are beyond VHF range. Demodulation is performed using the soundcard. Such signals are typically around 1.5Ghz and can be received with a simple low gain antenna that can be home brewed in a few hours in conjunction with a cheap [RTL-SDR](http://www.rtl-sdr.com/about-rtl-sdr) dongle.
 
@@ -40,7 +17,7 @@ This program started when I was contacted by otti, a satellite monitoring enthus
 After that, things were fairly straightforward. Using the manual I implemented a QDevice class to decode the bitstream, and with a few little tweaks here and there JAERO was born.
 
 
-    Receiving the RF signal
+## Receiving the RF signal
 
 The signals are transmitted on the L band around 1.5 GHz from geostationary satellites. That means the signals are coming from about 40,000 km away, twice as far away as GPS satellites (20,000 km) and 100 times as far away as the international space station (400 km). Despite the large distance the signals are surprisingly easy to receive. For a list of satellites and locations see the [L band frequency list](http://www.uhf-satcom.com/lband/). The list was last updated 2.5 years ago as a writing (December 2015) so things may have changed a little since then. Alternatively for a more up-to-date list for Europe and the USA scroll down to the user contributed frequency list section [user contributed frequency lists](#ucfl). To know which direction to point your antenna from wherever you are in the world, [DishPointer](http://www.dishpointer.com/) I find handy.
 
@@ -84,30 +61,29 @@ To mitigate the frequency stability problems that RTL-SDR dongle have, I put it 
 
 In New Zealand I have seen ACARS on two satellites, Inmarsat 4F1 and Inmarsat 3F3 both produce roughly the same signal strength here. The signals are easy to see on a frequency spectrum display but can be difficult to hear. as an example of what you might hear you can listen to this audio recording of about 16 kHz bandwidth that contains [four 600 bps signals](https://drive.google.com/uc?export=download&id=0B1561PAMx6wiZE11U2tvVE93bFk). I found to obtain such signals without any buffer loss with RTL-SDR dongle's required me not setting the RTL-SDR sample rate to fast, I tend to use 0.25 MSPS which seems to work well.
 
-
-    Content
+## Content
 
 Unlike the usual VHF ACARS, with SatCom ACARS you can not receive signals from the Aeroplane only the people on the ground talking to the people in the Aeroplane. This means you do not get the airplanes reporting their position. Instead you tend to get weather reports, flight plans, and that sort of stuff; but occasionally you get something quite juicy and unexpected. Just like VHF ACARS they usually use cryptic shorthand notation. For example “METAR YSSY 040400Z 08012KT 9999 FEW040 SCT048 23/09 Q1024 FM0500 05012KT CAVOK=” is the weather report for Sydney Airport in Australia in a format called METAR. It tells you the time, when the report was issued, the wind direction and speed, visibility, clouds, temperature, due point and air pressure. Then it says from 5 AM UTC the wind direction and speed and that the weather will be nice. There are sites such as [Flight Utilities](http://www.flightutilities.com/MRonline.aspx) that can decode such information and display it in a more understandable format.
 
 There are a lot of abbreviations used with ACARS so suggest you take a look at some [aviation abbreviations](http://www1.atmb.net.cn/CD_web/UploadFile/2013052810480238.pdf) if you're curious as to what some of the messages are about.
 
 
-    The program
+## The program
 
 JAERO can log ACARS messages to disk for later perusal or can be viewed live when running the program. Metric information such as what planes have been heard, when they were last heard, when they were first heard, how many times they have been heard and so on is also maintained. It is possible to record more than one channel simultaneously but can be CPU intensive, cumbersome, and the metric information is not stored correctly.
 
 The program has run successfully on Windows and Linux. Martin Hauke (mnhauke) has kindly made a package available on [openSUSE's open build server](https://build.opensuse.org/package/show/home:mnhauke:sdr/jaero) meaning the installation on openSUSE (a Linux OS) should be as easy as "sudo zypper install jaero" (once the his repo has been added to the package manager "sudo zypper addrepo http://download.opensuse.org/repositories/home:/mnhauke:/sdr/openSUSE_Leap_42.1/" then "sudo zypper refresh" for OpenSUSE's current download version as of writing). Sound piping of at least prerecorded audio apparently works out-of-the-box on openSUSE's pulseaudio on top of ALSA setup too. On Windows it has been tried on 7, 8 and 8.1 successfully.
 
-JAERO on Linux
+### JAERO on Linux
 
-Playing recorded Aero signals into JAERO on Linux
+### Playing recorded Aero signals into JAERO on Linux
 
 Currently there is no user manual but the program is reasonably self-explanatory. If anyone wishes to write a manual for others please feel free, I would suggest placing it in the [JAERO wiki](https://github.com/jontio/JAERO/wiki) so others can modify it as time goes by. In the absence of a manual there are a few things that may help to know. To receive the signal you have to pass the audio of the receiver into JAERO. The receiver may be a hardware implementation or the common RTL-SDR dongle with SDR program (such as SDR#) method. For a physical receiver just plugging the audio output into the soundcard is enough. For the RTL-SDR dongle method the usual way people do this is to use a virtual audio cable such as [VB-Audio Virtual Cable](http://vb-audio.pagesperso-orange.fr/Cable/index.htm). The receiver should be set to USB (/Upper Side Band/), however, some receivers seem to be back to front and LSB (/Lower Side Band/) is required. Therefore, if the signal LED lights but the data LED does not, you either have not tuned into an Aero signal or you need to change the USB/LSB setting. If you select "Enable widebandwidth" in the settings you can demodulate signals up to 24 kHz but this uses more CPU, alternatively not having it checked uses less CPU but the upper frequency limit is limited. Currently the logs are saved with <LF> which do not render correctly in notepad.exe.
 
 JAERO is a cross-platform open source program written in C++ Qt. It is hosted on GitHub as jontio/JAERO <https://github.com/jontio/JAERO> so feel free to extend it and improve it. The releases can be found at jontio/JAERO/releases <https://github.com/jontio/JAERO/releases>. Currently I only maintain precompiled versions for Windows 32-bit, these should work on Windows 7 and above for both 32-bit and 64-bit computers
 
 
-    Version 1.0.2 https://github.com/jontio/JAERO/releases/tag/v1.0.2
+## Version 1.0.2 https://github.com/jontio/JAERO/releases/tag/v1.0.2
     update (Third times a charm)
 
 19-Dec-2015:
@@ -163,7 +139,7 @@ This seems to solve the problem of where the GES numbers 90, 50 and D0 are comin
 With a low gain antenna such as a modified GPS patch antenna you can receive multiple satellites at the same time but the signal strengths are low. This is how I accidentally discovered GES 90. With an antenna using a dish the antenna becomes too directional to obtain signals from multiple satellites at the same time.
 
 
-    Satellite X
+## Satellite X
 
 Pointing the patch antenna straight up into the sky I happened to tune into one station and got a GES 0x71 packet destined for an Air New Zealand plane. I had never heard of such a GES number. Someone mentioned to me that it might be MTSAT. At this point the penny dropped, the document I followed to decode Aero data was called “Part III – Inmarsat and *MTSAT*”. MTSAT was right there in the document title.
 
@@ -223,14 +199,13 @@ The method I used everyone else can now do using JAERO v1.0.3.1. Simply tune int
 
 Personally I think with all the confusion about where the GES locations are in the world they should all be treated with skepticism. GES 0x71 may be coming from Kobe Japan.
 
-
-    10.5k Signal support (part of the Aero-H and Aero-H+ services)
+## 10.5k Signal support (part of the Aero-H and Aero-H+ services)
 
 3-Jan-2016:
 I am aware of three bit rates used by Aero; 600 1200 and 10.5k. 600 and 1200 both use basically MSK/GMSK, while 10.5k uses OQPSK (/Offset quadrature phase shift keying/). This means for 10.5k support I needed to design and implement an OQPSK demodulator. For the design and testing, I used Matlab, you can see here how the design and testing process went for the [OQPSK demodulator](http://jontio.zapto.org/hda1/oqpsk.html).
 
 
-    Version 1.0.3 <https://github.com/jontio/JAERO/releases/tag/v1.0.3>
+## Version 1.0.3 <https://github.com/jontio/JAERO/releases/tag/v1.0.3>
     update (Four times as good)
 
 10-Jan-2016:
@@ -244,31 +219,29 @@ The 10.5k signals I believe are part of the services called Aero-H and Aero-H+ w
 They send news on these signals, that was a surprise
 
 
-    C-band burst packets. (The excitement starts here)
+## C-band burst packets. (The excitement starts here)
 
 23-Jan-2016:
 As well as the L band signals that people have been using JAERO to demodulate and decode, these Aero satellites also transmit information in the C-band around 3.6 GHz. A standard C-band satellite TV setup along with an F type female socket to SMA and male plug adapter and an SDR receiver is all that is needed to be able to receive them. These signals have successively been obtained using 1.8, 2.3 and 3 m dishes. What is attractive to many about these signals is that they contain the airplane location information. These signals are burst signals and require a burst demodulator for them. Continue reading here about the design, testing with real-life signals, and tips on how to receive such signals. [http://jontio.zapto.org/hda1/c-band.html]()
 
 
-    A couple of bugs fixed
+## A couple of bugs fixed
 
 29-Jan-2016:
 I did a minor update and got rid of a couple of bugs. The update is
 v1.0.3.1
 
 
-    Testing 2 RTL-SRDs and 1 SDRPlay receiver for Aero reception
+## Testing 2 RTL-SRDs and 1 SDRPlay receiver for Aero reception
 
 31-Jan-2016:
 I was given a loan of an SDRPlay receiver so I decided to have a look at the performance of both the two RTL dongles that I have and that of the SDRPlay on the Aero signals. Continue reading here how the testing [went](http://jontio.zapto.org/hda1/rtl-and-sdrplay/rtl-and-sdrplay.html).
 
 
 <a name="ucfl"></a>
-    User contributed frequency lists
-Here are some frequency and satellite lists contributed by users that
-should be useful for people. Not all are for Aero but all are around the
-Aero frequencies, so if you find something unknown then these non Aero
-ones may inform you what you have found.
+## User contributed frequency lists
+
+Here are some frequency and satellite lists contributed by users that should be useful for people. Not all are for Aero but all are around the Aero frequencies, so if you find something unknown then these non Aero ones may inform you what you have found.
 
   * [Aero L-band Inmarsat satellites and frequencies](http://jontio.zapto.org/hda1/AERO-March-2016-USA.pdf). Kindly compiled by David.
   * [Aero L-band Inmarsat satellites and frequencies as seen from West Europe](http://jontio.zapto.org/hda1/AERO-March-2016-Europe.pdf). Kindly compiled by Hervé F6DFB.
@@ -276,7 +249,7 @@ ones may inform you what you have found.
   * [C-band burst Aero satellites and frequencies as seen from West Europe](http://jontio.zapto.org/hda1/AERO-Cband-burst-March-2016-Europe.pdf). Kindly compiled by Hervé F6DFB.
 
 
-    Version 1.0.4 <https://github.com/jontio/JAERO/releases/tag/v1.0.4>
+## Version 1.0.4 <https://github.com/jontio/JAERO/releases/tag/v1.0.4>
     update (C-band burst packets are here)
 
 20-Feb-2016:
@@ -285,7 +258,7 @@ JAERO v1.0.4 now supports 10.5kbps burst C-band Aero signals (3,246 new lines of
 v1.0.4 fixes the database download issue, and shows non ACARS messages in hex. Before you update to it you should be aware that you should delete your plane log window as the registration value now filters out the "." and if you don't you'll get some odd repetitions of registration numbers. You will also have to download the database again as it expects the new database format rather than the old one.
 
 
-    Version 1.0.4.1
+## Version 1.0.4.1
     <https://github.com/jontio/JAERO/releases/tag/v1.0.4.1> minor update
     (ADS-C decoding for C-band)
 
@@ -310,7 +283,7 @@ In addition a UDP port is added to output anything that appears in the bottom wi
 Continue reading more about Experimenting with C-band Aero and Decoding the [ADS packets](http://jontio.zapto.org/hda1/c-band-ads-decoding.html).
 
 
-    Version 1.0.4.2
+## Version 1.0.4.2
     <https://github.com/jontio/JAERO/releases/tag/v1.0.4.2> minor update
     (Planes on maps for C-band is here)
 
@@ -322,12 +295,12 @@ Planes plotted on a map from data decoded using C-band signals off the I3 POR sa
 Planes plotted on a map from data decoded using C-band signals off the I3 POR satellite
 
 
-    IRC #hearsat
+## IRC #hearsat
 
 \#hearsat is an [IRC](https://en.wikipedia.org/wiki/Internet_Relay_Chat) chatroom dedicated to satellite stuff; it seems to be the channel to goto for satellite stuff. So if you're interested in getting into satellite stuff further head on over to the [#hearsat chatroom](http://www.starchat.net/chat/?chan=hearsat). I hear it's an active chatroom with a large number of friendly users who would be more than happy to chat.
 
 
-    Version 1.0.4.3
+## Version 1.0.4.3
     <https://github.com/jontio/JAERO/releases/tag/v1.0.4.3> minor update
     (C-band goes dual channel)
 
@@ -347,31 +320,26 @@ JAERO v1.0.4.3 demodulating two channels simultaneously
 JAERO v1.0.4.3 demodulating two channels simultaneously
 
 
-    Show your thanks
+## Show your thanks
 
 I have put hundreds of hours into making JAERO so if you want to show your thanks please send a few dollars my way so I can do things like buy some concrete and bolts to mount the big dish or buy another USB extension cord to get the signal at my desktop computer. Thanks.
 
+## Github repository links
 
-    Github repository links
+* [Repository](https://github.com/jontio/JAERO/)
+* [Releases](https://github.com/jontio/JAERO/releases)
+* [Wiki](https://github.com/jontio/JAERO/wiki)
 
-      * [Repository](https://github.com/jontio/JAERO/)
-      * [Releases](https://github.com/jontio/JAERO/releases)
-      * [Wiki](https://github.com/jontio/JAERO/wiki)
+## Downloads
 
-
-    Downloads
-
-      * Windows 32bit binary v1.0.4.3
- https://github.com/jontio/JAERO/releases/download/v1.0.4.3/JAERO-x32-setup.exe
-      * Windows 64bit binary v1.0.4.3
- https://github.com/jontio/JAERO/releases/download/v1.0.4.3/JAERO-x64-setup.exe
-      * Source code v1.0.4.3
- https://github.com/jontio/JAERO/archive/v1.0.4.3.zip
-      * Master source https://github.com/jontio/JAERO/zipball/master
-
-
+* Windows 32bit binary v1.0.4.3
+https://github.com/jontio/JAERO/releases/download/v1.0.4.3/JAERO-x32-setup.exe
+* Windows 64bit binary v1.0.4.3
+https://github.com/jontio/JAERO/releases/download/v1.0.4.3/JAERO-x64-setup.exe
+* Source code v1.0.4.3
+https://github.com/jontio/JAERO/archive/v1.0.4.3.zip
+* Master source https://github.com/jontio/JAERO/zipball/master
 
 Jonti 2016
 
 Jonti. Last modified Wed, 30 Mar 2016 00:48:43 GMT.
-free web site hit counter
