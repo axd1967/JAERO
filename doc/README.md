@@ -42,7 +42,7 @@ After that, things were fairly straightforward. Using the manual I implemented a
 
     Receiving the RF signal
 
-The signals are transmitted on the L band around 1.5 GHz from geostationary satellites. That means the signals are coming from about 40,000 km away, twice as far away as GPS satellites (20,000 km) and 100 times as far away as the international space station (400 km). Despite the large distance the signals are surprisingly easy to receive. For a list of satellites and locations see the [L band frequency list](http://www.uhf-satcom.com/lband/). The list was last updated 2.5 years ago as a writing (December 2015) so things may have changed a little since then. Alternatively for a more up-to-date list for Europe and the USA scroll down to the user contributed frequency list section <#user contributed frequency lists>. To know which direction to point your antenna from wherever you are in the world, [DishPointer](http://www.dishpointer.com/) I find handy.
+The signals are transmitted on the L band around 1.5 GHz from geostationary satellites. That means the signals are coming from about 40,000 km away, twice as far away as GPS satellites (20,000 km) and 100 times as far away as the international space station (400 km). Despite the large distance the signals are surprisingly easy to receive. For a list of satellites and locations see the [L band frequency list](http://www.uhf-satcom.com/lband/). The list was last updated 2.5 years ago as a writing (December 2015) so things may have changed a little since then. Alternatively for a more up-to-date list for Europe and the USA scroll down to the user contributed frequency list section [user contributed frequency lists](#ucfl). To know which direction to point your antenna from wherever you are in the world, [DishPointer](http://www.dishpointer.com/) I find handy.
 
 To receive the signal you need an antenna. Initially I tried making a helical antenna but due to my poor construction did not work very well. My second attempt was to simply take the ceramic filter out of an active GPS patch antenna and feed it with some electricity; this is what you see in the figure below.
 
@@ -263,8 +263,8 @@ v1.0.3.1
 I was given a loan of an SDRPlay receiver so I decided to have a look at the performance of both the two RTL dongles that I have and that of the SDRPlay on the Aero signals. Continue reading here how the testing [went](http://jontio.zapto.org/hda1/rtl-and-sdrplay/rtl-and-sdrplay.html).
 
 
+<a name="ucfl"></a>
     User contributed frequency lists
-
 Here are some frequency and satellite lists contributed by users that
 should be useful for people. Not all are for Aero but all are around the
 Aero frequencies, so if you find something unknown then these non Aero
