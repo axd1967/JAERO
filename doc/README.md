@@ -89,8 +89,8 @@ I've noticed that with the plane database that I've been using military planes d
 
 A quick word about the GES ( *Ground Earth Station* ) numbers. GES is a number that can tell you both what satellite you're listening to and where on the earth the uplink to the satellite is coming from. However this seems to be confusion as to the relationship between the GES number and the satellite and ground earth station. I have seen two different lists on the Internet which can be summarized in the following three tables (The last two tables come from the same information).
 
-GES ID (Hex)|Location|Oceanic region
--|-|-
+|GES ID (Hex)|Location|Oceanic region|
+---|---|---
 02|Southbury|AOR-W
 05|Aussaguel|AOR-W
 44|Eik|AOR-E
@@ -105,7 +105,7 @@ C5|Perth|IOR
 Table 1 is the standard one people seem to know about and while it looks ok it can't be the full story. The reason being is in New Zealand I have also seen 50 coming from a different satellite further to the west. In addition I have seen someone from Spain but getting the number 90 and the east coast of USA getting D0. These signals I think are coming from Inmarsat 4 satellites which are newer. This brings us to the next information I know of which can be summarized in the following two tables.
 
 GES ID (Hex)|Location|Oceanic region
--|-|-
+---|---|---
 82|Perth|POR
 44|Burum|AOR-E
 02|Burum|AOR-W
@@ -114,6 +114,7 @@ C1|Perth|IOR
 
 
 GES ID (Hex)|Location|Oceanic region
+---|---|---
 90|Fucino|EMEA
 D0|Paumalu|AMER
 50|Paumalu|ASIAPAC
