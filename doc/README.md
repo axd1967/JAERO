@@ -95,43 +95,35 @@ I've noticed that with the plane database that I've been using military planes d
 
 A quick word about the GES (/Ground Earth Station/) numbers. GES is a number that can tell you both what satellite you're listening to and where on the earth the uplink to the satellite is coming from. However this seems to be confusion as to the relationship between the GES number and the satellite and ground earth station. I have seen two different lists on the Internet which can be summarized in the following three tables (The last two tables come from the same information).
 
-GES ID (Hex) 	Location 	Oceanic region
-02 	Southbury 	AOR-W
-05 	Aussaguel 	AOR-W
-44 	Eik 	AOR-E
-43 	Aussaguel 	AOR-E
-82 	Santa Paula 	POR
-85 	Perth 	POR
-C1 	Eik 	IOR
-C5
-	Perth 	IOR
-
-GES table 1 (out of date?)
+GES ID (Hex)|Location|Oceanic region
+-|-|-
+02|Southbury|AOR-W
+05|Aussaguel|AOR-W
+44|Eik|AOR-E
+43|Aussaguel|AOR-E
+82|Santa Paula|POR
+85|Perth|POR
+C1|Eik|IOR
+C5|Perth|IOR
+*GES table 1 (out of date?)*
 
 
 Table 1 is the standard one people seem to know about and while it looks ok it can't be the full story. The reason being is in New Zealand I have also seen 50 coming from a different satellite further to the west. In addition I have seen someone from Spain but getting the number 90 and the east coast of USA getting D0. These signals I think are coming from Inmarsat 4 satellites which are newer. This brings us to the next information I know of which can be summarized in the following two tables.
 
-GES ID (Hex) 	Location 	Oceanic region
-82 	Perth 	POR
-44 	Burum
-	AOR-E
-02 	Burum 	AOR-W
-C1 	Perth
-	IOR
-
-GES table 2 of I-3 satellite vehicles (/SVs/) (inconsistent with table 1 and missing some GES numbers)
+GES ID (Hex)|Location|Oceanic region
+-|-|-
+82|Perth|POR
+44|Burum|AOR-E
+02|Burum|AOR-W
+C1|Perth|IOR
+*GES table 2 of I-3 satellite vehicles (*SVs*) (inconsistent with table 1 and missing some GES numbers)*
 
 
-GES ID (Hex) 	Location 	Oceanic region
-90
-	Fucino 	EMEA
-D0
-	Paumalu 	AMER
-50
-	Paumalu 	ASIAPAC
-
-GES table 3 of I-4 SVs
-(new satellites)
+GES ID (Hex)|Location|Oceanic region
+90|Fucino|EMEA
+D0|Paumalu|AMER
+50|Paumalu|ASIAPAC
+*GES table 3 of I-4 SVs (new satellites)*
 
 
 This seems to solve the problem of where the GES numbers 90, 50 and D0 are coming from but raises another problem. In New Zealand we can get 82 and 85 but 85 is not mentioned in the I-3 SV list. So does that mean we are in the middle of some transition between table 1 and table 2? Is table 1 and table 3 valid but table 2 is not valid just yet? Anyway, you get the idea of the problem.
@@ -145,7 +137,7 @@ Pointing the patch antenna straight up into the sky I happened to tune into one 
 
 I started looking at packet 0x0C which broadcasts the location of all the satellites as well as packet 0x40 on the control channel which directs airplanes to other channels. This allowed me to produce the following three lists for the three satellites I can see from New Zealand without ever having to use any data external from the information sent from the satellites.
 
-|Sat ID 2 at 178.5E Long (+-0.75°)
+    Sat ID 2 at 178.5E Long (+-0.75°)
 
     GES 82
     1545.010MHz 600bps (Smc)
@@ -163,19 +155,15 @@ I started looking at packet 0x0C which broadcasts the location of all the satell
     1545.200MHz 600bps (Smc)
     1546.070MHz 10500bps
 
-|
-
-|Sat ID 5 at 144E Long (+-0.75°)
+    Sat ID 5 at 144E Long (+-0.75°)
 
     GES 50
     1545.055MHz 600bps
     1545.105MHz 600bps (Smc)
     1546.005MHz 10500bps
     1546.035MHz 10500bps
-
-|
-
-|Sat ID 4 142.5E Long (+-0.75°)
+    
+    Sat ID 4 142.5E Long (+-0.75°)
 
     GES 71
     1546.402MHz 600bps
@@ -188,8 +176,6 @@ I started looking at packet 0x0C which broadcasts the location of all the satell
     1546.570MHz 600bps
     1546.592MHz 600bps
     1548.440MHz 10500bps (spot beam)
-
-|
 
 Using this method the satellites are not called by a name such as Inmarsat 3F3 but instead by a number such as 2. The location as given by the satellite is accurate to plus or minus 0.75°.
 
@@ -275,7 +261,6 @@ If you have read the previous page about JAERO supporting [burst C-band Aero](ht
 	  True Track = 333 deg. Ground speed = 532 knots. Vertical rate = -16 fpm.
 	  True heading = 328 deg. Mach speed = 0.8495 Vertical rate = -16 fpm.
 	  Wind speed = 55.5 knots. True wind direction = 200 deg. Temperature = -49 deg C.
-|
 
 
 In addition a UDP port is added to output anything that appears in the bottom window of JAERO. This should simplify the design of third-party applications. A possible application could be to show the whereabouts of the planes on a map.
